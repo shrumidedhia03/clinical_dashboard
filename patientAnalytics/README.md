@@ -30,7 +30,7 @@ You can install patientAnalytics from GitHub using devtools:
 install.packages("devtools")
 
 # Install the package from GitHub
-devtools::install_github("TBD")
+devtools::install_github("https://github.com/shrumidedhia03/clinical_dashboard/blob/main/patientAnalytics_0.1.0.tar.gz")
 ```
 After installation, load the package in R:
 

@@ -10,6 +10,7 @@ This project includes:
 ---
 
 ## **📦 Project Structure**
+```r
 clinical_dashboard/
 │── patientAnalytics/       # Custom R package for data cleaning
 │   ├── R/                  # Contains core R scripts for data cleaning
@@ -32,6 +33,7 @@ clinical_dashboard/
 │── clinical_dashboard.Rproj # R project file for RStudio
 │── .gitignore              # Git ignored files
 │── patientAnalytics_0.1.0.tar.gz  # Compressed package archive
+```
 
 ## Installation Guide
 ### 1. Install Required Libraries:
