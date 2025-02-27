@@ -1,0 +1,1 @@
+shiny::runApp("C:/Users/shrum/Downloads/clinical_dashboard/clinical_dashboard/shiny_app")

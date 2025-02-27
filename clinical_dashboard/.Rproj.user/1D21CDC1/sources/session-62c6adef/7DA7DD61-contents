@@ -1,0 +1,51 @@
+server <- function(input, output, session) {
+  filtered_data <- reactive({
+    df <- cleaned_cleveland
+    
+    if (input$sex != "All") {
+      df <- df[df$sex == as.numeric(input$sex), ]
+    }
+    
+    if (input$cp != "All") {
+      df <- df[df$cp == as.numeric(input$cp), ]
+    }
+    
+    if (input$num != "All") {
+      df <- df[df$num == as.numeric(input$num), ]
+    }
+    
+    df <- df[df$age >= input$age_range[1] & df$age <= input$age_range[2], ]
+    
+    return(df)
+  })
+  
+  output$bar_chart <- renderPlot({
+    ggplot(cleaned_cleveland, aes(x = factor(num), fill = factor(num))) +
+      geom_bar() +
+      labs(title = "Heart Disease Distribution", x = "Diagnosis (num)", y = "Count") +
+      scale_fill_manual(values = c("0" = "green", "1" = "red")) +
+      theme_minimal()
+  })
+  
+  output$scatter_plot <- renderPlotly({
+    p <- ggplot(filtered_data(), aes(x = age, y = thalach, color = factor(num))) +
+      geom_point(size = 2, alpha = 0.7) +
+      labs(title = "Age vs. Max Heart Rate", x = "Age", y = "Max Heart Rate (thalach)", color = "Heart Disease") +
+      scale_color_manual(values = c("0" = "green", "1" = "red")) +
+      theme_minimal()
+    ggplotly(p)
+  })
+  
+  output$chol_bp_plot <- renderPlotly({
+    p <- ggplot(filtered_data(), aes(x = chol, y = trestbps, color = factor(num))) +
+      geom_point(size = 2, alpha = 0.7) +
+      labs(title = "Cholesterol vs. Blood Pressure", x = "Cholesterol", y = "Blood Pressure", color = "Heart Disease") +
+      scale_color_manual(values = c("0" = "blue", "1" = "orange")) +
+      theme_minimal()
+    ggplotly(p)
+  })
+  
+  output$filtered_table <- renderDT({
+    datatable(filtered_data(), options = list(pageLength = 10))
+  })
+}
